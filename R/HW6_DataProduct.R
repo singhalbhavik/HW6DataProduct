@@ -3,7 +3,7 @@
 #' @name sparseNumeric-internal
 #' @keywords internal
 #' @import methods
-#' @importFrom graphics plot
+#' @importFrom graphics plot points
 NULL
 
 #' Sparse numeric vector S4 class
@@ -173,10 +173,18 @@ setGeneric("sparse_crossprod", function(x, y) standardGeneric("sparse_crossprod"
 setGeneric("nnzero", function(x) standardGeneric("nnzero"))
 
 
-
-if (!isGeneric("norm")) {
-  setGeneric("norm", function(x, ...) standardGeneric("norm"))
-}
+#' Norm of a vector
+#'
+#' Generic function for computing the norm of an object.
+#' The method for \code{sparse_numeric} computes the Euclidean norm,
+#' defined as the square root of the sum of squared entries.
+#'
+#' @param x Object to compute the norm of.
+#' @param ... Additional arguments passed to methods.
+#'
+#' @return A numeric scalar giving the norm of \code{x}.
+#' @export
+setGeneric("norm", function(x, ...) standardGeneric("norm"))
 
 
 #' Standardize a sparse_numeric vector
@@ -314,39 +322,54 @@ setMethod(
 #' @export
 setMethod("nnzero", signature(x = "sparse_numeric"), function(x) length(x@value))
 
-#' Multiply two sparse_numeric vectors elementwise with `*`
+#' Add two sparse_numeric vectors with `+`
 #'
-#' This is an operator alias for \code{sparse_mult}, allowing you to write
-#' \code{x * y} when both are \code{sparse_numeric} objects.
+#' This is an operator alias for \code{sparse_add}, allowing you to write
+#' \code{e1 + e2} when both are \code{sparse_numeric} objects.
 #'
-#' @inheritParams sparse_mult
-#' @return A \code{sparse_numeric} object representing \code{x * y}.
+#' @param e1 First \code{sparse_numeric} vector.
+#' @param e2 Second \code{sparse_numeric} vector.
+#'
+#' @return A \code{sparse_numeric} object representing \code{e1 + e2}.
 #' @export
-setMethod("+", signature(e1 = "sparse_numeric", e2 = "sparse_numeric"), function(e1, e2) sparse_add(e1, e2))
+setMethod(
+  "+",
+  signature(e1 = "sparse_numeric", e2 = "sparse_numeric"),
+  function(e1, e2) sparse_add(e1, e2)
+)
 
 #' Subtract two sparse_numeric vectors with `-`
 #'
 #' This is an operator alias for \code{sparse_sub}, allowing you to write
-#' \code{x - y} when both are \code{sparse_numeric} objects.
+#' \code{e1 - e2} when both are \code{sparse_numeric} objects.
 #'
-#' @inheritParams sparse_sub
-#' @return A \code{sparse_numeric} object representing \code{x - y}.
+#' @param e1 First \code{sparse_numeric} vector.
+#' @param e2 Second \code{sparse_numeric} vector.
+#'
+#' @return A \code{sparse_numeric} object representing \code{e1 - e2}.
 #' @export
-setMethod("-", signature(e1 = "sparse_numeric", e2 = "sparse_numeric"), function(e1, e2) sparse_sub(e1, e2))
+setMethod(
+  "-",
+  signature(e1 = "sparse_numeric", e2 = "sparse_numeric"),
+  function(e1, e2) sparse_sub(e1, e2)
+)
 
 #' Multiply two sparse_numeric vectors elementwise with `*`
 #'
 #' This is an operator alias for \code{sparse_mult}, allowing you to write
-#' \code{x * y} when both are \code{sparse_numeric} objects.
+#' \code{e1 * e2} when both are \code{sparse_numeric} objects.
 #'
-#' @inheritParams sparse_mult
-#' @return A \code{sparse_numeric} object representing \code{x * y}.
+#' @param e1 First \code{sparse_numeric} vector.
+#' @param e2 Second \code{sparse_numeric} vector.
+#'
+#' @return A \code{sparse_numeric} object representing \code{e1 * e2}.
 #' @export
-setMethod("*", signature(e1 = "sparse_numeric", e2 = "sparse_numeric"), function(e1, e2) sparse_mult(e1, e2))
+setMethod(
+  "*",
+  signature(e1 = "sparse_numeric", e2 = "sparse_numeric"),
+  function(e1, e2) sparse_mult(e1, e2)
+)
 
-if (!isGeneric("plot")) {
-  setGeneric("plot", function(x, y) standardGeneric("plot"))
-}
 
 #' Plot overlapping non-zero entries of two sparse_numeric vectors
 #'
@@ -359,8 +382,9 @@ if (!isGeneric("plot")) {
 #' @return Invisibly returns \code{NULL}.
 #' @export
 setMethod(
-  "plot", signature(x = "sparse_numeric", y = "sparse_numeric"),
-  function(x, y) {
+  "plot",
+  signature(x = "sparse_numeric", y = "sparse_numeric"),
+  function(x, y, ...) {
     .check_same_length(x, y)
     
     common_pos = intersect(x@pos, y@pos)
@@ -373,8 +397,7 @@ setMethod(
     xv = x@value[match(common_pos, x@pos)]
     yv = y@value[match(common_pos, y@pos)]
     
-    plot(common_pos, xv, xlab = "Position", ylab = "Value", pch  = 16)
-    
+    plot(common_pos, xv, xlab = "Position", ylab = "Value", pch = 16, ...)
     points(common_pos, yv, pch = 1)
     
     invisible(NULL)
@@ -410,9 +433,7 @@ setMethod(
 #' as the square root of the sum of squared entries.
 #'
 #' @param x A \code{sparse_numeric} object.
-#' @param ... Ignored.
-#'
-#' @return A numeric scalar giving the Euclidean norm of \code{x}.
+#' @rdname norm
 #' @export
 setMethod(
   "norm",

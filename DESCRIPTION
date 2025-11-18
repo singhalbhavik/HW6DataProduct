@@ -20,5 +20,4 @@ Suggests:
     covr,
     pkgdown
 Config/testthat/edition: 3
-LazyData: true
 License: MIT + file LICENSE

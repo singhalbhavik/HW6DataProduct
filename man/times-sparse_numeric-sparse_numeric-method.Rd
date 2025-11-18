@@ -6,10 +6,15 @@
 \usage{
 \S4method{*}{sparse_numeric,sparse_numeric}(e1, e2)
 }
+\arguments{
+\item{e1}{First \code{sparse_numeric} vector.}
+
+\item{e2}{Second \code{sparse_numeric} vector.}
+}
 \value{
-A \code{sparse_numeric} object representing \code{x * y}.
+A \code{sparse_numeric} object representing \code{e1 * e2}.
 }
 \description{
 This is an operator alias for \code{sparse_mult}, allowing you to write
-\code{x * y} when both are \code{sparse_numeric} objects.
+\code{e1 * e2} when both are \code{sparse_numeric} objects.
 }

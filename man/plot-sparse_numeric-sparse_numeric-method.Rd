@@ -4,7 +4,7 @@
 \alias{plot,sparse_numeric,sparse_numeric-method}
 \title{Plot overlapping non-zero entries of two sparse_numeric vectors}
 \usage{
-\S4method{plot}{sparse_numeric,sparse_numeric}(x, y)
+\S4method{plot}{sparse_numeric,sparse_numeric}(x, y, ...)
 }
 \arguments{
 \item{x, y}{Objects of class \code{sparse_numeric}.}
