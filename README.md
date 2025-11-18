@@ -4,6 +4,8 @@
 # sparseNumeric
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/singhalbhavik/HW6DataProduct/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/singhalbhavik/HW6DataProduct/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 `sparseNumeric` provides an S4 class (`sparse_numeric`) for representing
