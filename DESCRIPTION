@@ -1,0 +1,23 @@
+Package: sparseNumeric
+Type: Package
+Title: Sparse Numeric Vector S4 Class and Utilities
+Version: 0.1.0
+Authors@R:
+    person("Bhavik", "Singhal", email = "singhal.bhavik30@gmail.com", role = c("aut", "cre"))
+Description: Provides an S4 class for representing sparse numeric vectors
+    along with operations such as addition, subtraction, elementwise
+    multiplication, cross-products, mean, norm, and standardization
+    without requiring dense storage.
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Depends: R (>= 4.1.0)
+Imports:
+    methods,
+    graphics
+Suggests:
+    testthat (>= 3.0.0),
+    covr,
+    pkgdown
+Config/testthat/edition: 3
+LazyData: true
